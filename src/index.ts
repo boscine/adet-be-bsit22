@@ -1,15 +1,22 @@
-import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
+import { serve } from '@hono/node-server';
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
+import 'dotenv/config';
 
-const app = new Hono()
+// 1. Remove .js and ensure names match
+import authRoutes from './routes/auth.routes';
+import apiRoutes from './routes/api.routes';
+import { verifyToken } from './middleware/auth.middleware'; // Matches the export now!
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+const app = new Hono();
 
-serve({
-  fetch: app.fetch,
-  port: 3000
-}, (info) => {
-  console.log(`Server is running on http://localhost:${info.port}`)
-})
+app.use('*', cors({ origin: 'http://localhost:4200' }));
+
+// ── Routes ──────────────────────────────────────────
+app.route('/api/auth', authRoutes);   // login/register
+app.use('/api/*', verifyToken);       // Uses the imported verifyToken
+app.route('/api', apiRoutes);         // Protected routes
+
+serve({ fetch: app.fetch, port: 3000 }, () =>
+  console.log('API running → http://localhost:3000')
+);

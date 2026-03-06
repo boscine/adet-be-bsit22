@@ -26,3 +26,17 @@ lerna-debug.log*
 
 # misc
 .DS_Store
+
+
+# Prisma
+/prisma/migrations-lock.toml
+# If you don't want to track migrations during early dev, ignore this folder:
+# /prisma/migrations/
+
+# TypeScript / Build
+dist/
+*.tsbuildinfo
+# Only ignore .js if you are strictly using .ts and don't want compiled files in git
+*.js
+!jest.config.js
+!next.config.js
