@@ -1,5 +1,5 @@
 {
-  "name": "adet-be-bsit22",
+  "name": "bsit_22",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.19.11",
-    "hono": "^4.12.5"
+    "hono": "^4.12.5",
+    "mysql2": "^3.9.1",
+    "dotenv": "^16.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
